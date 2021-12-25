@@ -43,6 +43,7 @@ type AddTodoOutput struct {
 func AddTodo(ctx context.Context, client *ent.Client, input AddTodoInput) (*AddTodoOutput, error) {
 	t, err := client.Todo.
 		Create().
+		SetTitle(input.Title).
 		Save(ctx)
 	if err != nil {
 		return nil, fmt.Errorf("failed creating todo: %w", err)

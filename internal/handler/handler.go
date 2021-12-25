@@ -6,6 +6,7 @@ import (
 	"entgo-aws-appsync/ent"
 	"entgo-aws-appsync/internal/resolver"
 	"fmt"
+	"log"
 )
 
 type Action string
@@ -35,6 +36,9 @@ func New(c *ent.Client) *Handler {
 }
 
 func (h *Handler) Handle(ctx context.Context, e Event) (interface{}, error) {
+	log.Printf("action: %s", e.Action)
+	log.Printf("payload: %s", e.Input)
+
 	switch e.Action {
 	case ActionMigrate:
 		return nil, h.client.Schema.Create(ctx)
