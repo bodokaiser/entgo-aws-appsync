@@ -18,11 +18,11 @@ func Todos(ctx context.Context, client *ent.Client, input TodosInput) ([]*ent.To
 }
 
 type TodoByIDInput struct {
-	TodoID string `json:"todoId"`
+	ID string `json:"id"`
 }
 
 func TodoByID(ctx context.Context, client *ent.Client, input TodoByIDInput) (*ent.Todo, error) {
-	tid, err := strconv.Atoi(input.TodoID)
+	tid, err := strconv.Atoi(input.ID)
 	if err != nil {
 		return nil, fmt.Errorf("failed parsing todo id: %w", err)
 	}
@@ -60,7 +60,7 @@ type RemoveTodoOutput struct {
 }
 
 func RemoveTodo(ctx context.Context, client *ent.Client, input RemoveTodoInput) (*RemoveTodoOutput, error) {
-	t, err := TodoByID(ctx, client, TodoByIDInput(input))
+	t, err := TodoByID(ctx, client, TodoByIDInput{ID: input.TodoID})
 	if err != nil {
 		return nil, fmt.Errorf("failed querying todo with id %q: %w", input.TodoID, err)
 	}
