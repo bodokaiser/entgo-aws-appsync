@@ -40,9 +40,6 @@ func (h *Handler) Handle(ctx context.Context, e Event) (interface{}, error) {
 		return nil, h.client.Schema.Create(ctx)
 	case ActionTodos:
 		input := resolver.TodosInput{}
-		if err := json.Unmarshal(e.Input, &input); err != nil {
-			return nil, fmt.Errorf("failed parsing %s params: %w", ActionTodos, err)
-		}
 		return resolver.Todos(ctx, h.client, input)
 	case ActionTodoByID:
 		input := resolver.TodoByIDInput{}

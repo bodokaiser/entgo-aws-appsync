@@ -23,5 +23,5 @@ func main() {
 	client := ent.NewClient(ent.Driver(entsql.OpenDB(dialect.Postgres, db)))
 	defer client.Close()
 
-	lambda.Start(handler.New(client))
+	lambda.Start(handler.New(client).Handle)
 }
